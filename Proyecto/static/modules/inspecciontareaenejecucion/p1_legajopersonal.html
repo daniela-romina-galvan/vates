@@ -1,0 +1,23 @@
+<div class="col-lg-12">
+    <section class="panel panel-primary">
+        <header class="panel-heading">
+            <i class="fa fa-plus-square"></i> <i class="fa fa-user"></i>&nbsp;&nbsp; Agregar inspección de personal
+        </header>
+        <div class="panel-body">
+            <div class=" form">
+                <form class="form" id="form_select_legajopersonal" method="post" action="{url_app}/inspecciontareaenejecucion/guardar_inspeccion_personal">
+                    <div class="form-group" style="margin-top: 0px; padding-top: 0px;">
+                        <div class="form-group">
+                            <label>Personal</label>
+                            {tbl_short_option_legajo}
+                        </div>
+                    </div>
+                    <div class="col-lg-12" style="margin-top: 2%;" align="right">
+                        <input type="hidden" name="inspeccionresultado_id" id="inspeccionresultado-inspeccionresultado_id">
+                        <button class="btn btn-danger" type="button" onClick="traerFormInsPersonalPaso2();"><i class="fa fa-arrow-circle-right"></i> Continuar </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>

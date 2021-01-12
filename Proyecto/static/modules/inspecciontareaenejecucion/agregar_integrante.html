@@ -1,0 +1,223 @@
+<script type="text/javascript">
+    var inspeccionresultado_id = {inspeccionresultado-inspeccionresultado_id};
+    var legajopersonal_id = 0;
+    var vehiculo_id = 0;
+
+    function traerFormInsPersonalPaso1() {
+        document.getElementById("form_inspeccion").style.display = "block";
+        var form_inspeccion_personal = $.ajax({
+            url:'{url_app}/inspecciontareaenejecucion/p1_legajopersonal',
+                dataType: 'text',
+                async: false
+        }).responseText;
+
+        document.getElementById("form_inspeccion").innerHTML = form_inspeccion_personal;
+        $('#tbl_legajo').dataTable( {
+            "aaSorting": [[ 1, "asc" ]]
+          , "iDisplayLength":5
+        } );
+    }
+
+    function traerFormInsPersonalPaso2() {
+        legajopersonal_id = $('input[name=legajopersonal]:checked', '#form_select_legajopersonal').val();
+
+        var form_inspeccion_personal = $.ajax({
+            url:'{url_app}/inspecciontareaenejecucion/p2_legajopersonal_agregar/' + inspeccionresultado_id + '@' + legajopersonal_id,
+                dataType: 'text',
+                async: false
+        }).responseText;
+
+        var txt_legajo = document.getElementById('legajo_' + legajopersonal_id).innerHTML;
+        txt_legajo = txt_legajo.replace('<strong>', '');
+        txt_legajo = txt_legajo.replace('</strong>', '');
+        document.getElementById("integrante").value = txt_legajo;
+        document.getElementById("div_integrante").style.display = 'block';
+        document.getElementById("form_inspeccion").innerHTML = form_inspeccion_personal;
+        document.getElementById("inspeccionresultado-legajopersonal_id").value = legajopersonal_id;
+        document.getElementById("inspeccionresultado-inspeccionresultado_id").value = inspeccionresultado_id;
+        document.getElementById("inspeccionresultado-fecha").value = document.getElementById('fecha').value;
+        document.getElementById("inspeccionresultado-hora").value = document.getElementById('hora').value;
+        document.getElementById("inspeccionresultado-tarea").value = document.getElementById('tarea').value;
+        document.getElementById("inspeccionresultado-numero_tarea").value = document.getElementById('numero_tarea').value;
+        document.getElementById("inspeccionresultado-numero_remito").value = document.getElementById('numero_remito').value;
+        document.getElementById("inspeccionresultado-lugar").value = document.getElementById('lugar').value;
+        document.getElementById("inspeccionresultado-unidad_car").value = document.getElementById('unidad_car').value;
+        document.getElementById("inspeccionresultado-latitud").value = document.getElementById('latitud').value;
+        document.getElementById("inspeccionresultado-longitud").value = document.getElementById('longitud').value;
+        document.getElementById("inspeccionresultado-altitud").value = document.getElementById('altitud').value;
+        document.getElementById("inspeccionresultado-observacion").value = document.getElementById('observacion').value;
+        document.getElementById("inspeccionresultado-inspecciontipo").value = document.getElementById('inspecciontipo').value;
+        document.getElementById("inspeccionresultado-inspector").value = document.getElementById('inspector').value;
+        document.getElementById("inspeccionresultado-responsable").value = document.getElementById('responsable').value;
+    }
+
+    function traerFormInsVehiculoPaso1() {
+        document.getElementById("form_inspeccion").style.display = "block";
+        var form_inspeccion_vehiculo = $.ajax({
+            url:'{url_app}/inspecciontareaenejecucion/p1_vehiculo',
+                dataType: 'text',
+                async: false
+        }).responseText;
+
+        document.getElementById("form_inspeccion").innerHTML = form_inspeccion_vehiculo;
+        $('#tbl_vehiculo').dataTable( {
+            "aaSorting": [[ 1, "asc" ]]
+          , "iDisplayLength":5
+        } );
+    }
+
+    function traerFormInsVehicularPaso2() {
+        vehiculo_id = $('input[name=vehiculo]:checked', '#form_select_vehiculo').val();
+
+        if (vehiculo_id == null || vehiculo_id.length == 0 || vehiculo_id == "") {
+          $('#alertas_campos_required').modal('show');
+          document.getElementById("msj_campos_required").innerHTML = '<strong>[ERROR]</strong> Por favor seleccione un Vehiculo.';
+        }else {
+
+          var form_inspeccion_vehicular = $.ajax({
+              url:'{url_app}/inspecciontareaenejecucion/p2_vehiculo_agregar/' + inspeccionresultado_id + '@' + vehiculo_id,
+                  dataType: 'text',
+                  async: false
+          }).responseText;
+
+          var txt_vehiculo = document.getElementById('vehiculo_denominacion_' + vehiculo_id).innerHTML;
+          var txt_dominio = document.getElementById('dominio_' + vehiculo_id).innerHTML;
+          txt_dominio = txt_dominio.replace('<strong>', '');
+          txt_dominio = txt_dominio.replace('</strong>', '');
+          var txt_integrante = txt_dominio + ' - ' + txt_vehiculo;
+          document.getElementById("integrante").value = txt_integrante;
+          document.getElementById("div_integrante").style.display = 'block';
+          document.getElementById("form_inspeccion").innerHTML = form_inspeccion_vehicular;
+          document.getElementById("inspeccionresultado-vehiculo_id").value = vehiculo_id;
+          document.getElementById("inspeccionresultado-inspeccionresultado_id").value = inspeccionresultado_id;
+          document.getElementById("inspeccionresultado-fecha").value = document.getElementById('fecha').value;
+          document.getElementById("inspeccionresultado-hora").value = document.getElementById('hora').value;
+          document.getElementById("inspeccionresultado-tarea").value = document.getElementById('tarea').value;
+          document.getElementById("inspeccionresultado-numero_tarea").value = document.getElementById('numero_tarea').value;
+          document.getElementById("inspeccionresultado-numero_remito").value = document.getElementById('numero_remito').value;
+          document.getElementById("inspeccionresultado-lugar").value = document.getElementById('lugar').value;
+          document.getElementById("inspeccionresultado-unidad_car").value = document.getElementById('unidad_car').value;
+          document.getElementById("inspeccionresultado-latitud").value = document.getElementById('latitud').value;
+          document.getElementById("inspeccionresultado-longitud").value = document.getElementById('longitud').value;
+          document.getElementById("inspeccionresultado-altitud").value = document.getElementById('altitud').value;
+          document.getElementById("inspeccionresultado-inspecciontipo").value = document.getElementById('inspecciontipo').value;
+          document.getElementById("inspeccionresultado-inspector").value = document.getElementById('inspector').value;
+          document.getElementById("inspeccionresultado-responsable").value = document.getElementById('responsable').value;
+      }
+    }
+    function marcar(grupocuestionario_id) {
+       $(".grupo_"+grupocuestionario_id).attr('checked',false);
+       var respuestacuestionariogeneral = $("input[name=respuestacuestionariogeneral_"+grupocuestionario_id+"]:checked").val();
+       respuestacuestionariogeneral = 'grupo_'+grupocuestionario_id+'_'+respuestacuestionariogeneral;
+       $(".grupo_"+grupocuestionario_id).each(function () {
+         var valor = this.getAttribute('comparador');
+         if (respuestacuestionariogeneral == valor) {
+            $(this).attr('attr', valor+grupocuestionario_id);
+            $("input[attr='"+valor+grupocuestionario_id+"']" ).attr('checked', true);
+           // $(".grupo_"+grupocuestionario_id+"_"+valor).attr('checked', true);
+         }
+       });
+    }
+</script>
+<!--DATA TABLE-->
+<link href="{url_static}assets/advanced-datatable/media/css/demo_table.css" rel="stylesheet" />
+<link rel="stylesheet" href="{url_static}assets/data-tables/DT_bootstrap.css" />
+<script type="text/javascript" language="javascript" src="{url_static}assets/advanced-datatable/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="{url_static}assets/data-tables/DT_bootstrap.js"></script>
+<!--DATA TABLE-->
+<div class="col-lg-12">
+    <ul class="breadcrumb">
+        <li><a href="{url_app}/usuario/{panel_general}"><i class="fa fa-home"></i> Panel</a></li>
+        <li><a href="{url_app}/{objeto}/panel_tareaejecucion">Tareas en Ejecución</a></li>
+    </ul>
+</div>
+<div class="col-lg-5">
+    <section class="panel panel-primary" id="div_consultar">
+        <header class="panel-heading">
+            <i class="fa fa-plus-square"></i>&nbsp;&nbsp; Añadir inspección
+        </header>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="form-group col-lg-12" id="div_integrante" style="display: none;">
+                    <label class="control-label">Integrante</label>
+                    <input type="text" class="form-control" id="integrante" readonly>
+                </div>
+                <div class="form-group col-lg-8">
+                    <label class="control-label">Tipo de Inspección</label>
+                    <input type="text" class="form-control" value="{inspecciontipo-denominacion}" readonly>
+                    <input type="hidden" class="form-control" id="inspecciontipo" name="inspecciontipo" value="{inspecciontipo-inspecciontipo_id}">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="control-label">Estado Inspección</label>
+                    <input type="text" class="form-control" value="{inspeccionresultado-estado_inspeccion}" readonly>
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="control-label">Fecha</label>
+                    <input type="date" class="form-control" id="fecha" name="fecha" value="{inspeccionresultado-fecha}" readonly>
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="control-label">Hora</label>
+                    <input type="time" class="form-control" id="hora" name="hora" value="{inspeccionresultado-hora}" readonly>
+                </div>
+                {inspecciontareaenejecucion}
+                <div class="form-group col-lg-6">
+                    <label class="control-label">Inspector</label>
+                    <select class="form-control" id="inspector" name="inspector" required disabled>
+                        <option selected value="{inspector-inspector_id}">{inspector-apellido} {inspector-nombre}</option>
+                    </select>
+                </div>
+                <div class="form-group col-lg-6">
+                    <label class="control-label">Responsable</label>
+                    <select class="form-control" name="responsable" id="responsable" disabled>
+                        <option selected value="{responsable-responsable_id}">{responsable-denominacion}</option>
+                    </select>
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="control-label">Latitud</label>
+                    <input type="number" class="form-control" id="latitud" name="latitud" step="0.001" value="{inspeccionresultado-latitud}" readonly>
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="control-label">Longitud</label>
+                    <input type="number" class="form-control" id="longitud" name="longitud" step="0.001" value="{inspeccionresultado-longitud}" readonly>
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="control-label">Altitud</label>
+                    <input type="number" class="form-control" id="altitud" name="altitud" step="0.001" value="{inspeccionresultado-altitud}" readonly>
+                </div>
+                <div class="form-group col-lg-12">
+                    <label class="control-label">Observación</label>
+                    <textarea class="form-control" id="observacion" name="observacion" rows="5" readonly>{inspeccionresultado-observacion}</textarea>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="col-lg-6" style="padding-left: 0px;">
+        <button type="button" class="btn btn-shadow btn-danger" style="width: 100%;" onClick="traerFormInsVehiculoPaso1();"><i class="fa fa-plus-square"></i> <i class="fa fa-truck"></i> Vehículo</button>
+    </div>
+    <div class="col-lg-6" style="padding-right: 0px;">
+        <button type="button" class="btn btn-shadow btn-danger" style="width: 100%;" onClick="traerFormInsPersonalPaso1();"><i class="fa fa-plus-square"></i> <i class="fa fa-user"></i> Legajo Personal</button>
+    </div>
+</div>
+<div class="col-lg-7" id="form_inspeccion"></div>
+
+<div class="modal fade" id="alertas_campos_required" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #ff6c60;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">ATENCIÓN!</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-2">
+                    <center><h1><i class="fa fa-exclamation-triangle" style="color: #ff6c60;"></i></h1></center>
+                </div>
+                <div class="col-lg-10">
+                    <h5 id="msj_campos_required"></h5>
+                </div>
+            </div>
+            <div class="modal-footer" style="margin-top: 300px;">
+                <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

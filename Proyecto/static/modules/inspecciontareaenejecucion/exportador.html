@@ -1,0 +1,163 @@
+<!--DATA TABLE-->
+<link href="{url_static}assets/advanced-datatable/media/css/demo_table.css" rel="stylesheet" />
+<link rel="stylesheet" href="{url_static}assets/data-tables/DT_bootstrap.css" />
+<script type="text/javascript" language="javascript" src="{url_static}assets/advanced-datatable/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="{url_static}assets/data-tables/DT_bootstrap.js"></script>
+<!--DATA TABLE-->
+<div class="col-lg-12">
+    <ul class="breadcrumb">
+        <li><a href="{url_app}/usuario/{panel_general}"><i class="fa fa-home"></i> Panel</a></li>
+        <li><a href="{url_app}/{objeto}/panel_tareaejecucion">Tareas en Ejecución</a></li>
+    </ul>
+</div>
+<div class="col-lg-12">
+  <section class="panel panel-primary">
+      <header class="panel-heading">
+          <i class="fa fa-plus-square"></i>&nbsp;&nbsp; Exportar
+      </header>
+      <div class="panel-body">
+        <form class="form-horizontal tasi-form" id="form_exportar" method="post">
+          <div class="col-lg-12">
+            <div class="col-lg-12">
+              <div class="col-lg-12">
+                  <label for="tipo_reporte">Tipo de Resumen</label>
+                  <select class="form-control m-bot15" id="tipo_resumen" name="tipo_resumen">
+                      <option value="" selectd="">Seleccione Tipo de Resumen</option>
+                      <option value="1">1- Ins EQ Y Moviles por SRL,MOVIL Y ord FECHA</option>
+                      <option value="2">2- Ins Personal detalle agrupa c/separador</option>
+                      <option value="3">3- Ins Personal por Persona</option>
+                      <option value="4">4- Ins por Personal - Contador</option>
+                      <option value="5">5- Ins por Vehiculo - Contador</option>
+                      <option value="6">6- Ins Personal por SRL e INFORME</option>
+                  </select>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-4">
+                <label for="fecha_desde">SRL</label>
+                {slt_contratista}
+               </div>
+               <div class="col-lg-4">
+                <label for="fecha_hasta">Dominio</label>
+                {slt_vehiculo}
+               </div>
+               <div class="col-lg-4">
+                 <label for="fecha_hasta">Personal</label>
+                     {slt_legajopersonal}
+                </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <label for="fecha_desde">Fecha desde</label>
+                <input type="date" class="form-control" id="fecha_desde" name="fecha_desde" required="">
+               </div>
+               <div class="col-lg-6">
+                <label for="fecha_hasta">Fecha hasta</label>
+                <input type="date" class="form-control" id="fecha_hasta" name="fecha_hasta" required="">
+               </div>
+            </div>
+            <div class="form-group col-lg-12"></div>
+            <div class="col-lg-12" style="text-align: right;">
+                <button class="btn btn-xl btn-danger" type="button" onclick="exportar();"> Exportar <i class="fa fa-download"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+  </section>
+</div>
+
+<div class="modal fade" id="alertas_campos_required" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #ff6c60;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">ATENCIÓN!</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-2">
+                    <center><h1><i class="fa fa-exclamation-triangle" style="color: #ff6c60;"></i></h1></center>
+                </div>
+                <div class="col-lg-10">
+                    <h5 id="msj_campos_required"></h5>
+                </div>
+            </div>
+            <div class="modal-footer" style="margin-top: 300px;">
+                <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--select2-->
+<link rel="stylesheet" type="text/css" href="{url_static}assets/select2/css/select2.min.css"/>
+<script type="text/javascript" src="{url_static}assets/select2/js/select2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".slt_vehiculo").select2();
+        $(".slt_legajopersonal").select2();
+    });
+
+    $("#tipo_resumen").change( function() {
+       if ($(this).val() === "1") {
+         $("#vehiculo").prop("disabled", false);
+         $("#legajopersonal").prop("disabled", true);
+       } else if ($(this).val() === "2") {
+         $("#vehiculo").prop("disabled", true);
+         $("#legajopersonal").prop("disabled", false);
+
+       } else if ($(this).val() === "3" || $(this).val() === "4" || $(this).val() === "5") {
+         $("#vehiculo").prop("disabled", true);
+         $("#legajopersonal").prop("disabled", true);
+       }
+   });
+
+   function exportar(){
+     var array = new Array();
+     var flag_array = 0;
+     var tipo_resumen = document.getElementById("tipo_resumen").value;
+     var contratista = document.getElementById("contratista").value;
+     var fecha_desde = document.getElementById("fecha_desde").value;
+     var fecha_hasta = document.getElementById("fecha_hasta").value;
+     var vehiculo = document.getElementById("vehiculo").value;
+     var legajopersonal = document.getElementById("legajopersonal").value;
+
+     if (tipo_resumen == null || tipo_resumen.length == 0 || tipo_resumen == "") {
+         flag_array = 1;
+         array.push("<strong>[ERROR]</strong> Por favor seleccione un Tipo de Resumen.");
+     }
+     if (fecha_desde == null || fecha_desde.length == 0 || fecha_desde == "") {
+         flag_array = 1;
+         array.push("<strong>[ERROR]</strong> Por favor seleccione Fecha Desde.");
+     }
+     if (fecha_hasta == null || fecha_hasta.length == 0 || fecha_hasta == "") {
+         flag_array = 1;
+         array.push("<strong>[ERROR]</strong> Por favor seleccione Fecha Hasta.");
+     }
+
+     if (tipo_resumen === "1") {
+       if (vehiculo == null || vehiculo.length == 0 || vehiculo == "") {
+           flag_array = 1;
+           array.push("<strong>[ERROR]</strong> Por favor seleccione Dominio.");
+       }
+     }else if(tipo_resumen === "2") {
+       if (legajopersonal == null || legajopersonal.length == 0 || legajopersonal == "") {
+           flag_array = 1;
+           array.push("<strong>[ERROR]</strong> Por favor seleccione una Persona.");
+       }
+     }
+
+     if (flag_array == 0) {
+       var formulario = document.getElementById('form_exportar');
+       formulario.setAttribute('action','{url_app}/inspecciontareaenejecucion/exportar_inspeccion');
+       formulario.submit();
+       document.getElementById("form_exportar").reset();
+      
+     } else {
+         var mensaje = array.join("<br><br>");
+         $('#alertas_campos_required').modal('show');
+         document.getElementById("msj_campos_required").innerHTML = mensaje;
+     }
+
+   }
+
+</script>

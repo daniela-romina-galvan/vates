@@ -1,0 +1,115 @@
+<!--DATA TABLE-->
+<link href="{url_static}assets/advanced-datatable/media/css/demo_table.css" rel="stylesheet" />
+<link rel="stylesheet" href="{url_static}assets/data-tables/DT_bootstrap.css" />
+<script type="text/javascript" language="javascript" src="{url_static}assets/advanced-datatable/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="{url_static}assets/data-tables/DT_bootstrap.js"></script>
+<!--DATA TABLE-->
+<style>
+    .modal.and.carousel {
+      position: fixed;
+    }
+</style>
+<div class="col-lg-12">
+    <ul class="breadcrumb">
+        <li><a href="{url_app}/usuario/{panel_general}"><i class="fa fa-home"></i> Panel</a></li>
+        <li><a href="{url_app}/{objeto}/panel_tareaejecucion">Tareas en Ejecución</a></li>
+    </ul>
+</div>
+<div class="col-lg-5">
+    <section class="panel panel-primary">
+        <header class="panel-heading">
+            <i class="fa fa-plus-square"></i>&nbsp;&nbsp; Consultar inspección
+            <span class="tools pull-right">
+                <a href="{url_app}/inspecciontareaenejecucion/editar_vehicular/{inspeccionresultado-inspeccionresultado_id}" class="btn btn-xs btn-danger" style="color: #FFFFFF !important; display: {inspeccionresultado-btn_editar}"><i class="fa fa-edit"></i> Editar</a>
+            </span>
+            <span class="tools pull-right">
+              <a href="#lightbox" data-toggle="modal" class="btn btn-xs btn-warning" style="color: #FFFFFF !important; display: {option-buttom}"><i class="fa fa-eye"></i> Ver Imagenes</a>
+            </span>
+        </header>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="form-group col-lg-8">
+                    <label class="control-label">Integrante</label>
+                    <input type="text" class="form-control" value="{vehiculo-dominio} - {vehiculomarca-denominacion} {vehiculomodelo-denominacion}" readonly>
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="control-label">Estado Inspección</label>
+                    <select class="form-control" name="estado_inspeccion" required disabled>
+                        <option value="{inspeccionresultado-estado_inspeccion}" selected>{inspeccionresultado-estado_denominacion}</option>
+                    </select>
+                </div>
+                <div class="form-group col-lg-12">
+                    <label class="control-label">Tipo de Inspección</label>
+                    <input type="text" class="form-control" value="{inspecciontipo-denominacion}" readonly>
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="control-label">Fecha</label>
+                    <input type="date" class="form-control" id="fecha" name="fecha" value="{inspeccionresultado-fecha}" readonly>
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="control-label">Hora</label>
+                    <input type="time" class="form-control" id="hora" name="hora" value="{inspeccionresultado-hora}" readonly>
+                </div>
+                 {inspecciontareaenejecucion}
+                <div class="form-group col-lg-6">
+                    <label class="control-label">Inspector</label>
+                    <select class="form-control" name="inspector" required disabled>
+                        <option selected>{inspector-apellido} {inspector-nombre}</option>
+                    </select>
+                </div>
+                <div class="form-group col-lg-6">
+                    <label class="control-label">Responsable</label>
+                    <select class="form-control" name="responsable" disabled>
+                        <option selected >{responsable-denominacion}</option>
+                    </select>
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="control-label">Latitud</label>
+                    <input type="number" class="form-control" id="latitud" name="latitud" step="0.001" value="{inspeccionresultado-latitud}" readonly>
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="control-label">Longitud</label>
+                    <input type="number" class="form-control" id="longitud" name="longitud" step="0.001" value="{inspeccionresultado-longitud}" readonly>
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="control-label">Altitud</label>
+                    <input type="number" class="form-control" id="altitud" name="altitud" step="0.001" value="{inspeccionresultado-altitud}" readonly>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="col-lg-7">
+    <section class="panel panel-primary">
+        <header class="panel-heading">
+            <i class="fa fa-plus-square"></i>&nbsp;&nbsp;
+        </header>
+        <div class="panel-body">
+          <div class="form-group col-lg-12">
+              <label class="control-label">Observación</label>
+              <textarea class="form-control" id="observacion" name="observacion" rows="5" readonly>{inspeccionresultado-observacion}</textarea>
+          </div>
+        </div>
+    </section>
+</div>
+<div class="modal fade and carousel slide" id="lightbox">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="carousel-inner">
+          <div class="zoom item active">
+            <img src="files.php?f=inspeccionresultado_{url-buttom}"/>
+          </div>
+          {ls_archivoinspeccionresultado}
+        </div>
+        <a class="left carousel-control" href="#lightbox" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#lightbox" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{url_static}js/focus2.js"></script>

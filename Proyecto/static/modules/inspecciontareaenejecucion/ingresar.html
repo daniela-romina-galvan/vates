@@ -1,0 +1,122 @@
+<!--DATA TABLE-->
+<link href="{url_static}assets/advanced-datatable/media/css/demo_table.css" rel="stylesheet" />
+<link rel="stylesheet" href="{url_static}assets/data-tables/DT_bootstrap.css" />
+<script type="text/javascript" language="javascript" src="{url_static}assets/advanced-datatable/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="{url_static}assets/data-tables/DT_bootstrap.js"></script>
+<!--DATA TABLE-->
+<div class="col-lg-12">
+    <ul class="breadcrumb">
+        <li><a href="{url_app}/usuario/{panel_general}"><i class="fa fa-home"></i> Panel</a></li>
+        <li><a href="{url_app}/{objeto}/panel_tareaejecucion">Tareas en Ejecución</a></li>
+    </ul>
+</div>
+<form class="form" method="post" action="{url_app}/inspecciontareaenejecucion/guardar_cabecera" accept-charset="utf-8">
+    <div class="col-lg-12">
+        <section class="panel panel-primary">
+            <header class="panel-heading">
+                <i class="fa fa-plus-square"></i>&nbsp;&nbsp; Agregar inspección
+            </header>
+            <div class="panel-body">
+                <div class=" form">
+                    <div class="form-group col-lg-5">
+                        <div class="form-group">
+                            <div class="form-group col-lg-8">
+                                <label class="control-label">Tipo de Inspección</label>
+                                <input type="text" class="form-control" value="Tarea en Ejecución" readonly>
+                                <input type="hidden" class="form-control" id="inspecciontipo" name="inspecciontipo" value="1">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label class="control-label">Estado Inspección</label>
+                                <select class="form-control" name="estado_inspeccion" required>
+                                    <option value="0" selected>Pendiente</option>
+                                    <option value="1">Cerrada</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label class="control-label">Fecha</label>
+                                <input type="date" class="form-control" id="fecha" name="fecha" value="{fecha_sys}" required>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label class="control-label">Hora</label>
+                                <input type="time" class="form-control" id="hora" name="hora" value="{hora_sys}">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label class="control-label">Nº Remito</label>
+                                <input type="number" class="form-control" id="numero_remito" name="numero_remito">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label class="control-label">Nº Tarea</label>
+                                <input type="number" class="form-control" id="numero_tarea" name="numero_tarea">
+                            </div>
+                            <div class="form-group col-lg-8">
+                                <label class="control-label">Tarea</label>
+                                <input type="text" class="form-control" id="tarea" name="tarea" required>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label class="control-label">Inspector</label>
+                                <select class="form-control" name="inspector" required>
+                                    {slt_inspector}
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label class="control-label">Lugar</label>
+                                <input type="text" class="form-control" id="lugar" name="lugar">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label class="control-label">Unidad CAR</label>
+                                <input type="text" class="form-control" id="unidad_car" name="unidad_car">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label class="control-label">Latitud</label>
+                                <input type="number" class="form-control" id="latitud" name="latitud" step="0.001" value="0">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label class="control-label">Longitud</label>
+                                <input type="number" class="form-control" id="longitud" name="longitud" step="0.001" value="0">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label class="control-label">Altitud</label>
+                                <input type="number" class="form-control" id="altitud" name="altitud" step="0.001" value="0">
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label class="control-label">Observación</label>
+                                <textarea class="form-control" id="observacion" name="observacion" rows="5"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-7">
+                        <label class="control-label">Seleccionar Responsable</label>
+                        <div class="radios">
+                            <div class="adv-table">
+                                <table class="display table table-bordered table-striped" id="tbl_legajopersonal">
+                                    <thead>
+                                        <tr style="font-size: 12px;">
+                                            <th></th>
+                                            <th>Apellido, Nombre</th>
+                                            <th>CUIT</th>
+                                            <th>Contratista</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {tbl_legajopersonal}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-12" style="text-align: right;">
+                        <button class="btn btn-xl btn-danger" type="submit" > Continuar <i class="fa fa-caret-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</form>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $('#tbl_legajopersonal').dataTable( {
+            "aaSorting": [[ 0, "asc" ]]
+          , "iDisplayLength":6
+        } );
+    } );
+</script>

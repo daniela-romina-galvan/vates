@@ -1,0 +1,18 @@
+<form class="form" id="formulario_guardar" method="post" action="{url_app}/inspecciontareaenejecucion/guardar_inspeccion_vehicular">
+  <section class="panel panel-primary">
+    <header class="panel-heading">
+      <i class="fa fa-plus-square"></i>&nbsp;&nbsp;
+    </header>
+    <div class="panel-body">
+      <div class="form-group col-lg-12">
+         <label class="control-label">Observación</label>
+         <textarea class="form-control" id="observacion" name="observacion" rows="5"></textarea>
+      </div>
+      <div class="col-lg-12" style="margin-top: 2%;" align="right">
+          <input type="hidden" name="inspeccionresultado_id" id="inspeccionresultado-inspeccionresultado_id">
+          <input type="hidden" name="vehiculo" id="inspeccionresultado-vehiculo_id">
+          <button class="btn btn-danger" type="submit"><i class="fa fa-save"></i> Guardar </button>
+      </div>
+    </div>
+  </section>
+</form>

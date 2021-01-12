@@ -1,0 +1,24 @@
+<form class="form" id="formulario_guardar" method="post" action="{url_app}/inspecciontareaenejecucion/agregar_inspeccion_personal">
+    <div class="panel-group m-bot20" id="accordion">
+        {lst_grupocuestionario}
+    </div>
+    <div class="col-lg-12" style="margin-top: 2%;" align="right">
+        <input type="hidden" name="inspeccionresultado_id" id="inspeccionresultado-inspeccionresultado_id">
+        <input type="hidden" name="legajopersonal" id="inspeccionresultado-legajopersonal_id">
+        <input type="hidden" name="fecha" id="inspeccionresultado-fecha">
+        <input type="hidden" name="hora" id="inspeccionresultado-hora">
+        <input type="hidden" name="tarea" id="inspeccionresultado-tarea">
+        <input type="hidden" name="numero_tarea" id="inspeccionresultado-numero_tarea">
+        <input type="hidden" name="numero_remito" id="inspeccionresultado-numero_remito">
+        <input type="hidden" name="lugar" id="inspeccionresultado-lugar">
+        <input type="hidden" name="unidad_car" id="inspeccionresultado-unidad_car">
+        <input type="hidden" name="latitud" id="inspeccionresultado-latitud">
+        <input type="hidden" name="longitud" id="inspeccionresultado-longitud">
+        <input type="hidden" name="altitud" id="inspeccionresultado-altitud">
+        <input type="hidden" name="observacion" id="inspeccionresultado-observacion">
+        <input type="hidden" name="inspecciontipo" id="inspeccionresultado-inspecciontipo">
+        <input type="hidden" name="inspector" id="inspeccionresultado-inspector">
+        <input type="hidden" name="responsable" id="inspeccionresultado-responsable">
+        <button class="btn btn-danger" type="submit"><i class="fa fa-save"></i> Guardar </button>
+    </div>
+</form>

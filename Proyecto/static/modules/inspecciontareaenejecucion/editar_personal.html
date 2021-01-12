@@ -1,0 +1,119 @@
+<!--DATA TABLE-->
+<link href="{url_static}assets/advanced-datatable/media/css/demo_table.css" rel="stylesheet" />
+<link rel="stylesheet" href="{url_static}assets/data-tables/DT_bootstrap.css" />
+<script type="text/javascript" language="javascript" src="{url_static}assets/advanced-datatable/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="{url_static}assets/data-tables/DT_bootstrap.js"></script>
+<!--DATA TABLE-->
+<div class="col-lg-12">
+    <ul class="breadcrumb">
+        <li><a href="{url_app}/usuario/{panel_general}"><i class="fa fa-home"></i> Panel</a></li>
+        <li><a href="{url_app}/{objeto}/panel_tareaejecucion">Tareas en Ejecución</a></li>
+    </ul>
+</div>
+<div class="col-lg-5">
+    <section class="panel panel-primary">
+        <header class="panel-heading">
+            <i class="fa fa-plus-square"></i>&nbsp;&nbsp; Editar inspección
+        </header>
+        <div class="panel-body">
+            <form class="form" method="post" action="{url_app}/inspeccionresultado/actualizar_cabecera_tareaejecucion">
+                <div class="form-group">
+                    <div class="form-group col-lg-12">
+                        <label class="control-label">Integrante</label>
+                        <input type="text" class="form-control" value="{integrante}" readonly>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label class="control-label">Tipo de Inspección</label>
+                        <input type="text" class="form-control" value="{inspecciontipo-denominacion}" readonly>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label class="control-label">Fecha</label>
+                        <input type="date" class="form-control" id="fecha" name="fecha" value="{inspeccionresultado-fecha}" required readonly>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label class="control-label">Hora</label>
+                        <input type="time" class="form-control" id="hora" name="hora" value="{inspeccionresultado-hora}" readonly>
+                    </div>
+                    {inspecciontareaenejecucion}
+                    <div class="form-group col-lg-6">
+                        <label class="control-label">Inspector</label>
+                        <select class="form-control" name="inspector" required readonly disabled>
+                            <option value="{inspector-inspector_id}">{inspector-apellido} {inspector-nombre}</option>
+                            {slt_inspector}
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label class="control-label">Responsable</label>
+                        <select class="form-control" name="responsable" required readonly disabled>
+                            <option value="{responsable-responsable_id}">{responsable-denominacion}</option>
+                            {slt_responsable}
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label class="control-label">Latitud</label>
+                        <input type="number" class="form-control" id="latitud" name="latitud" step="0.001" value="{inspeccionresultado-latitud}" readonly>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label class="control-label">Longitud</label>
+                        <input type="number" class="form-control" id="longitud" name="longitud" step="0.001" value="{inspeccionresultado-longitud}" readonly>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label class="control-label">Altitud</label>
+                        <input type="number" class="form-control" id="altitud" name="altitud" step="0.001" value="{inspeccionresultado-altitud}" readonly>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label class="control-label">Observación</label>
+                        <textarea class="form-control" id="observacion" name="observacion" rows="5" readonly>{inspeccionresultado-observacion}</textarea>
+                    </div>
+                    <div class="form-group col-lg-12" style="text-align: right;">
+                        <input type="hidden" class="form-control" id="inspeccionresultado_id" name="inspeccionresultado_id" value="{inspeccionresultado-inspeccionresultado_id}">
+                        <input type="hidden" class="form-control" id="inspecciontareaenejecucion_id" name="inspecciontareaenejecucion_id" value="{inspecciontareaenejecucion_id}">
+                        <!--<button class="btn btn-xl btn-danger" type="submit" ><i class="fa fa-edit"></i> Editar </button>-->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+<div class="col-lg-7">
+    <form class="form" id="formulario_guardar" method="post" action="{url_app}/inspecciontareaenejecucion/actualizar_inspeccion_personal">
+    <section class="panel panel-danger">
+      <header class="panel-heading">
+        <i class="fa fa-check-square"></i>&nbsp;&nbsp; Checklist
+      </header>
+      <div class="panel-body">
+    {cuestionario}
+      </div>
+    </section>
+    <section class="panel panel-info">
+        <div class="panel-body">
+          <div class="col-lg-12 text-center" style="margin-top: 2%;">
+              <input type="hidden" name="inspeccionresultado_id" value="{inspeccionresultado-inspeccionresultado_id}">
+              <input type="hidden" name="legajopersonal" value="{legajopersonal-legajopersonal_id}">
+              <button class="btn btn-danger" type="submit"><i class="fa fa-save"></i> Guardar </button>
+          </div>
+        </div>
+    </section>
+        </form>
+</div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $('#tbl_legajopersonal').dataTable( {
+            "aaSorting": [[ 0, "asc" ]]
+          , "iDisplayLength":6
+        } );
+    } );
+    function marcar(grupocuestionario_id) {
+       $(".grupo_"+grupocuestionario_id).attr('checked',false);
+
+       var respuestacuestionariogeneral = $("input[name=respuestacuestionariogeneral_"+grupocuestionario_id+"]:checked").val();
+       $(".grupo_"+grupocuestionario_id).each(function () {
+         var valor = $(this).val();
+         if (respuestacuestionariogeneral == valor) {
+            $(this).attr('attr', valor+grupocuestionario_id);
+            $("input[attr='"+valor+grupocuestionario_id+"']" ).attr('checked', true);
+           // $(".grupo_"+grupocuestionario_id+"_"+valor).attr('checked', true);
+         }
+       });
+    }
+</script>
